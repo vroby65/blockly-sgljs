@@ -1,6 +1,6 @@
 # Blockly SGL.js https://vroby65.github.io/blockly-sgljs/
 
-![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/01453f08-0a1a-487b-9a3a-653d93e8acc9)
+![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/95fa0032-19f8-4906-a92c-cc5070a4948d)
 
 
 This project provides a simple block-based coding environment using HTML, JavaScript, and the SGL.js library.
