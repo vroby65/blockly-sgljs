@@ -46,31 +46,24 @@ Blockly-SGLJS is a Blockly-based program that executes JavaScript code. The prog
 
 
 ## Basic Usage
+
+
 Creating a Surface
+![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/f6614dae-5539-49e8-b637-8272aad079a2)
 
-```javascript
-var mySurface = surface(800, 600);
-```
+
 Setting the Display
+![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/cd183d34-a7b7-4956-aea2-c5e995cf45cb)
 
-```javascript
-setdisplay(width,height);
-```
+
 Drawing on the Surface
+![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/315eadf5-3e66-44bf-9847-eef73bc8c79d)
 
-```javascript
-/ Example: Drawing a rectangle
-bar(mySurface, 50, 50, 200, 100, color);
-```
+
 Handling Input
+![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/855163cb-2b33-4e26-a777-82664653ba24)
 
-```javascript
-function update() {
-    if (key['a']) {
-        // Do something when 'a' key is pressed
-    }
-}
-```
+
 Saving and Loading Programs
 
 Use the provided interface to save and load your programs.
