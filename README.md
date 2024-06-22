@@ -31,6 +31,68 @@ This project provides a simple block-based coding environment using HTML, JavaSc
 - Drag and drop blocks to create your code.
 - Click on "Run" to execute the code.
 
+## Getting Started with Blockly-SGLJS
+Blockly-SGLJS is a Blockly-based program that executes JavaScript code. The program consists of two files: index.html and sgl.js. It can be used with a browser on your PC or installed on a server and accessed over the network. It does not save anything on the server side; programs must be loaded and saved on your PC. Additionally, it provides persistence of programs using the browser's local storage.
+
+Features
+Simplified JavaScript syntax
+update function executed 60 times per second
+Commands executed at startup
+Graphical commands targeting surfaces
+Special display variable for canvas
+Keyboard and mouse input handling
+Save and load programs
+Export programs as standalone HTML files
+Installation
+Download the Files
+
+Obtain index.html and sgl.js from the repository.
+Local Setup
+
+Place the files in a directory on your PC.
+Open index.html with a browser.
+Server Setup
+
+Place the files on your server.
+Access index.html through your web server.
+Basic Usage
+Creating a Surface
+
+javascript
+Copia codice
+var mySurface = surface(800, 600);
+Setting the Display
+
+javascript
+Copia codice
+setdisplay(display);
+Drawing on the Surface
+
+javascript
+Copia codice
+// Example: Drawing a rectangle
+rect(mySurface, 50, 50, 200, 100);
+Handling Input
+
+javascript
+Copia codice
+function update() {
+    if (keydown('a')) {
+        // Do something when 'a' key is pressed
+    }
+}
+Saving and Loading Programs
+
+Use the provided interface to save and load your programs.
+Export programs as HTML files for standalone use.
+Exporting Programs
+
+Export your program as an independent HTML page that requires sgl.js to function.
+By following these steps and utilizing the provided commands, you can create interactive graphical applications using Blockly-SGLJS.
+
+
+
+
 ## Project Structure
 
 - `index.html`: The main HTML file.
