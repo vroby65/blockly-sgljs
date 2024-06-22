@@ -31,10 +31,9 @@ This project provides a simple block-based coding environment using HTML, JavaSc
 ## Project Structure
 
 - `index.html`: The main HTML file.
-- `blockly/`: Contains the Blockly library.
 - `sgl.js`: The SGL.js library.
-- `scripts/`: Custom JavaScript files for the project.
-
+- Require CDNJS repository
+- 
 ## Contributing
 
 1. Fork the repository.
