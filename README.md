@@ -60,13 +60,13 @@ Drawing on the Surface
 
 ```javascript
 / Example: Drawing a rectangle
-rect(mySurface, 50, 50, 200, 100, color);
-
+bar(mySurface, 50, 50, 200, 100, color);
+```
 Handling Input
 
 ```javascript
 function update() {
-    if (keydown('a')) {
+    if (key['a']) {
         // Do something when 'a' key is pressed
     }
 }
