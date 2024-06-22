@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Custom Block</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blockly_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blocks_compressed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/msg/en.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/javascript_compressed.min.js"></script> 
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #blocklyDiv {
+      height: calc(100% - 40px);
+      width: 100%;
+    }
+    #controls {
+      height: 30px;
+      display:block;
+      align-items: left;
+      padding: 5px 10px;
+      background-color: #f0f0f0;
+    }
+    #newButton {
+      color:white;  
+      background-color: gray;
+      border: none;  
+      margin-left: auto;
+      padding: 5px 10px;
+    }
+
+    #openButton {
+      color:white;  
+      background-color: blue;  
+      border: none;  
+      margin-left: auto;
+      padding: 5px 10px;
+    }
+    #saveButton {
+      color:white;  
+      background-color: green;  
+      border: none;  
+      margin-left: auto;
+      padding: 5px 10px;
+    }
+
+    #exportButton {
+      color:white;  
+      background-color: orange;  
+      border: none;  
+      margin-left: auto;
+      padding: 5px 10px;
+    }
+
+    #runButton {
+      color:white;  
+      background-color: red;  
+      border: none;  
+      margin-left: auto;
+      padding: 5px 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <button id="newButton">New</button>
+  <input type="file" id="fileInput" style="display:none"/>  
+  <button id="openButton">Open</button>
+  <button id="saveButton">Save</button>
+   <button id="exportButton">Export</button>
+   <span> </span>
+  <button id="runButton">Run</button>
+</div>
+<div id="blocklyDiv"></div>
+
+<xml id="toolbox" style="display: none" categorystyle="logic_category">
+    <category id="Logic" name="Logic" >
+      <block type="controls_if"></block>
+      <block type="logic_compare"></block>
+      <block type="logic_operation"></block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean"></block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category id="Loops" name="Loops" categorystyle="loop_category">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_whileUntil"></block>
+      <block type="controls_for">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">10</field>
+          </block>
+        </value>
+        <value name="BY">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_forEach"></block>
+      <block type="controls_flow_statements"></block>
+    </category>
+    <category id="Math" name="Math" categorystyle="math_category">
+      <block type="math_number"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_single"></block>
+      <block type="math_trig"></block>
+      <block type="math_constant"></block>
+      <block type="math_number_property"></block>
+      <block type="math_change">
+        <value name="DELTA">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_round"></block>
+      <block type="math_on_list"></block>
+      <block type="math_modulo"></block>
+      <block type="math_constrain">
+        <value name="LOW">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="HIGH">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <block type="math_number">
+            <field name="NUM">1</field>
+          </block>
+        </value>
+        <value name="TO">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+    </category>
+    <category id="Text" name="Text" categorystyle="text_category">
+      <block type="text"></block>
+      <block type="text_join"></block>
+      <block type="text_append">
+        <value name="TEXT">
+          <block type="text"></block>
+        </value>
+      </block>
+      <block type="text_length"></block>
+      <block type="text_isEmpty"></block>
+      <block type="text_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" class="textVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" class="textVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_getSubstring">
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR" class="textVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="text_changeCase"></block>
+      <block type="text_trim"></block>
+      <block type="text_print"></block>
+      <block type="text_prompt_ext">
+        <value name="TEXT">
+          <block type="text"></block>
+        </value>
+      </block>
+    </category>
+    <category id="Lists" name="Lists" categorystyle="list_category"> 
+      <block type="lists_create_empty"></block>
+      <block type="lists_create_with"></block>
+      <block type="lists_repeat">
+        <value name="NUM">
+          <block type="math_number">
+            <field name="NUM">5</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+      <block type="lists_indexOf">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" class="listVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getIndex">
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" class="listVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_setIndex">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR" class="listVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_getSublist">
+        <value name="LIST">
+          <block type="variables_get">
+            <field name="VAR" class="listVar">...</field>
+          </block>
+        </value>
+      </block>
+      <block type="lists_split">
+        <value name="DELIM">
+          <block type="text">
+            <field name="TEXT">,</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category id="Colour" name="Colour" categorystyle="colour_category">
+      <block type="colour_picker"></block>
+      <block type="colour_random"></block>
+      <block type="colour_rgb">
+        <value name="RED">
+          <block type="math_number">
+            <field name="NUM">100</field>
+          </block>
+        </value>
+        <value name="GREEN">
+          <block type="math_number">
+            <field name="NUM">50</field>
+          </block>
+        </value>
+        <value name="BLUE">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+      <block type="colour_blend">
+        <value name="COLOUR1">
+          <block type="colour_picker">
+            <field name="COLOUR">#ff0000</field>
+          </block>
+        </value>
+        <value name="COLOUR2">
+          <block type="colour_picker">
+            <field name="COLOUR">#3333ff</field>
+          </block>
+        </value>
+        <value name="RATIO">
+          <block type="math_number">
+            <field name="NUM">0.5</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <sep></sep>
+    <category id="catVariables" name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
+    <category id="catFunctions" name="Functions" categorystyle="procedure_category" custom="PROCEDURE" ></category>
+    <sep></sep>
+		<category name="screen" categorystyle="loop_category">
+			<block type="sgljs_display"></block>		
+			<block type="sgljs_setdisplay"></block>
+			<block type="sgljs_setfps"></block>
+			<block type="sgljs_setfpsC"></block>
+			<block type="sgljs_createsurface"></block>
+			<block type="sgljs_loadsurface"></block>
+			<block type="sgljs_blt"></block>
+			<block type="sgljs_paste"></block>
+			<block type="sgljs_hit"></block>
+			<block type="sgljs_hitpp"></block>
+		</category>
+		<category name="graphics" categorystyle="loop_category">
+			<block type="sgljs_cls"></block>
+			<block type="sgljs_putpixel"></block>
+			<block type="sgljs_getpixel"></block>
+			<block type="sgljs_line"></block>
+			<block type="sgljs_box"></block>
+			<block type="sgljs_bar"></block>
+			<block type="sgljs_circle"></block>
+			<block type="sgljs_fillcircle"></block>
+		</category>
+		<category name="text" categorystyle="loop_category">
+			<block type="sgljs_setfont"></block>			
+			<block type="sgljs_text"></block>
+		</category>
+		<category name="mouse" categorystyle="loop_category">
+			<block type="sgljs_mousex"></block>
+			<block type="sgljs_mousey"></block>
+			<block type="sgljs_mouseb"></block>
+		</category>
+		<category name="touch" categorystyle="loop_category">
+			<block type="sgljs_touchx"></block>
+			<block type="sgljs_touchy"></block>
+			<block type="sgljs_touchb"></block>
+		</category>
+		<category name="keyboard" categorystyle="loop_category">
+			<block type="sgljs_key"></block>
+		</category>
+		<category name="sound" categorystyle="loop_category">
+			<block type="sgljs_loadsound"></block>
+			<block type="sgljs_playsound"></block>
+		</category>
+  </xml>
+<script>
+    
+// BLOCKS    
+
+ //display
+Blockly.Blocks['sgljs_display'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("display");
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//SCREEN
+
+//setdisplay( width, height)
+Blockly.Blocks['sgljs_setdisplay'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("setdisplay")
+        .appendField(new Blockly.FieldTextInput("width"), "width")
+        .appendField(new Blockly.FieldTextInput("heigth"), "height");
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//setfps(fps)
+Blockly.Blocks['sgljs_setfps'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("setfps");
+    this.appendValueInput("fps")
+        .setCheck("Number")
+        .appendField("");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks['sgljs_setfpsC'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("setfps")
+        .appendField(new Blockly.FieldTextInput("setfps"),"60");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+
+//  update()
+
+//createsurface(width,height)
+Blockly.Blocks['sgljs_createsurface'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("createsurface");
+    this.appendValueInput("width")
+        .appendField("width");
+    this.appendValueInput("height")
+        .appendField("height");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//function loadsurface(filepath)
+Blockly.Blocks['sgljs_loadsurface'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("loadsurface");
+    this.appendValueInput("filename")
+        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"));
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//blt( target,  xdest,  ydest, wdest, hdest, surface, xsource, ysource, wsource, hsource)
+Blockly.Blocks['sgljs_blt'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("blt");
+    this.appendValueInput("TARGET")
+        .appendField("target");
+    this.appendValueInput("xdest")
+        .appendField("xd");
+    this.appendValueInput("ydest")
+        .appendField("yd");
+    this.appendValueInput("wdest")
+        .appendField("wd");
+    this.appendValueInput("hdest")
+        .appendField("hd");
+    this.appendValueInput("surface")
+        .appendField("surface");
+    this.appendValueInput("xsource")
+        .appendField("xs");
+    this.appendValueInput("ysource")
+        .appendField("ys");
+    this.appendValueInput("wsource")
+        .appendField("ws");
+    this.appendValueInput("hsource")
+        .appendField("hs");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//paste( target, x, y, surface,angle,zoom,alpha)
+Blockly.Blocks['sgljs_paste'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("paste");
+    this.appendValueInput("TARGET")
+        .appendField("target");
+    this.appendValueInput("X")
+        .appendField("x");
+    this.appendValueInput("Y")
+        .appendField("y");
+    this.appendValueInput("surface")
+        .appendField("surface");
+    this.appendValueInput("angle")
+        .appendField("angle");
+    this.appendValueInput("zoom")
+        .appendField("zoom");
+    this.appendValueInput("alpha")
+        .appendField("alpha");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//hit(surfacea, xa, ya, surfaceb, xb, yb, xa2, ya2, xb2, yb2) 
+Blockly.Blocks['sgljs_hit'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("hit");
+    this.appendValueInput("surfaceA")
+        .appendField("surfaceA");
+    this.appendValueInput("xA")
+        .appendField("xA");
+    this.appendValueInput("yA")
+        .appendField("yA");
+    this.appendValueInput("surfaceB")
+        .appendField("surfaceB");
+    this.appendValueInput("xB")
+        .appendField("xB");
+    this.appendValueInput("yB")
+        .appendField("yB");
+    this.appendValueInput("xA2")
+        .appendField("xA2");
+    this.appendValueInput("yA2")
+        .appendField("yA2");
+    this.appendValueInput("xB2")
+        .appendField("xB2");
+    this.appendValueInput("yB2")
+        .appendField("yB2");
+    this.setInputsInline(true);
+	this.setOutput(true);    
+    this.setTooltip('');
+  }
+};
+
+//hitpp(surfacea, xa, ya, surfaceb, xb, yb, xa2, ya2, xb2, yb2)
+Blockly.Blocks['sgljs_hitpp'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("hitpp");
+    this.appendValueInput("surfaceA")
+        .appendField("surfaceA");
+    this.appendValueInput("xA")
+        .appendField("xA");
+    this.appendValueInput("yA")
+        .appendField("yA");
+    this.appendValueInput("surfaceB")
+        .appendField("surfaceB");
+    this.appendValueInput("xB")
+        .appendField("xB");
+    this.appendValueInput("yB")
+        .appendField("yB");
+    this.appendValueInput("xA2")
+        .appendField("xA2");
+    this.appendValueInput("yA2")
+        .appendField("yA2");
+    this.appendValueInput("xB2")
+        .appendField("xB2");
+    this.appendValueInput("yB2")
+        .appendField("yB2");
+    this.setInputsInline(true);
+	this.setOutput(true);    
+    this.setTooltip('');
+  }
+};
+
+//GRAPHICS
+//cls
+Blockly.Blocks['sgljs_cls'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("cls");
+	this.appendValueInput("target")
+        .appendField("target");        
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//putpixel( target, x, y, col)
+Blockly.Blocks['sgljs_putpixel'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("putpixel");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//getpixel( target, x, y)
+Blockly.Blocks['sgljs_getpixel'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("getpixel");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//line( target, x1, y1, x2, y2, col)
+Blockly.Blocks['sgljs_line'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("line");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("xs")
+        .appendField("xs");
+    this.appendValueInput("ys")
+        .appendField("ys");
+    this.appendValueInput("xd")
+        .appendField("xd");
+    this.appendValueInput("yd")
+        .appendField("yd");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//box( target, x, y, w, h, col)
+Blockly.Blocks['sgljs_box'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("box");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    this.appendValueInput("w")
+        .appendField("w");
+    this.appendValueInput("h")
+        .appendField("h");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//bar( target, x, y, w, h, col)
+Blockly.Blocks['sgljs_bar'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("bar");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    this.appendValueInput("w")
+        .appendField("w");
+    this.appendValueInput("h")
+        .appendField("h");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//circle( target, vx, vy, r, col)
+Blockly.Blocks['sgljs_circle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("circle");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("vx")
+        .appendField("vx");
+    this.appendValueInput("vy")
+        .appendField("vy");
+    this.appendValueInput("r")
+        .appendField("r");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//fillcircle( target, vx, vy, r, col)
+Blockly.Blocks['sgljs_fillcircle'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("fillcircle");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("vx")
+        .appendField("vx");
+    this.appendValueInput("vy")
+        .appendField("vy");
+    this.appendValueInput("r")
+        .appendField("r");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//TEXT
+
+//setfont(fnt)
+Blockly.Blocks['sgljs_setfont'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendValueInput("setfont")
+        .appendField("setfont");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//text ( target, x, y, size, col, txt)
+Blockly.Blocks['sgljs_text'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("text");
+    this.appendValueInput("target")
+        .appendField("target");
+    this.appendValueInput("x")
+        .appendField("x");
+    this.appendValueInput("y")
+        .appendField("y");
+    this.appendValueInput("size")
+        .appendField("size");
+    this.appendValueInput("color")
+        .appendField("color");
+    this.appendValueInput("text")
+        .appendField("text");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//MOUSE
+
+//mouseX
+Blockly.Blocks['sgljs_mousex'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("mouseX");
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//mouseY
+Blockly.Blocks['sgljs_mousey'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("mouseY");
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+//mouseB
+Blockly.Blocks['sgljs_mouseb'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("mouseB");
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//TOUCH
+
+//touchX
+Blockly.Blocks['sgljs_touchx'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("touchX");
+    this.appendValueInput("index");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+//touchY
+Blockly.Blocks['sgljs_touchy'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("touchY");
+    this.appendValueInput("index");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+//touchB
+Blockly.Blocks['sgljs_touchb'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("touchB");
+    this.appendValueInput("index");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//KEYBOARD
+
+//key
+Blockly.Blocks['sgljs_key'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendDummyInput()
+        .appendField("key")
+        .appendField(new Blockly.FieldDropdown([
+        ["KEY_ESC", "KEY_ESC"], 
+        ["KEY_SPACE", "KEY_SPACE"],
+		["KEY_UP", "KEY_UP"],
+		["KEY_LEFT", "KEY_LEFT"],
+		["KEY_RIGHT", "KEY_RIGHT"],
+		["KEY_DOWN", "KEY_DOWN"],
+		["KEY_CTRL", "KEY_CTRL"],
+		["KEY_BACKSPACE", "KEY_BACKSPACE"],
+		["KEY_TAB", "KEY_TAB"],
+		["KEY_ENTER", "KEY_ENTER"],
+		["KEY_SHIFT", "KEY_SHIFT"], 
+		["KEY_CTRL", "KEY_CTRL"], 
+		["KEY_ALT", "KEY_ALT"],
+		["KEY_PAUSE_BREAK", "KEY_PAUSE_BREAK"],
+		["KEY_CAPS_LOCK", "KEY_CAPS_LOCK"],
+		["KEY_ESCAPE", "KEY_ESCAPE"],
+		["KEY_PAGE_UP", "KEY_PAGE_UP"],
+		["KEY_PAGE_DOWN", "KEY_PAGE_DOWN"],
+		["KEY_END", "KEY_END"],
+		["KEY_HOME", "KEY_HOME"],
+		["KEY_LEFT_ARROW", "KEY_LEFT_ARROW"],
+		["KEY_UP_ARROW", "KEY_UP_ARROW"],
+		["KEY_RIGHT_ARROW", "KEY_RIGHT_ARROW"],
+		["KEY_DOWN_ARROW", "KEY_DOWN_ARROW"],
+		["KEY_INSERT", "KEY_INSERT"],
+		["KEY_DEL", "KEY_DEL"],
+		["KEY_0", "KEY_0"],
+		["KEY_1", "KEY_1"],
+		["KEY_2", "KEY_2"],
+		["KEY_3", "KEY_3"],
+		["KEY_4", "KEY_4"],
+		["KEY_5", "KEY_5"],
+		["KEY_6", "KEY_6"],
+		["KEY_7", "KEY_7"],
+		["KEY_8", "KEY_8"],
+		["KEY_9", "KEY_9"],
+		["KEY_A", "KEY_A"],
+		["KEY_B", "KEY_B"],
+		["KEY_C", "KEY_C"],
+		["KEY_D", "KEY_D"],
+		["KEY_E", "KEY_E"],
+		["KEY_F", "KEY_F"],
+		["KEY_G", "KEY_G"],
+		["KEY_H", "KEY_H"],
+		["KEY_I", "KEY_I"],
+		["KEY_J", "KEY_J"],
+		["KEY_K", "KEY_K"],
+		["KEY_L", "KEY_L"],
+		["KEY_M", "KEY_M"],
+		["KEY_N", "KEY_N"],
+		["KEY_O", "KEY_O"],
+		["KEY_P", "KEY_P"],
+		["KEY_Q", "KEY_Q"],
+		["KEY_R", "KEY_R"],
+		["KEY_S", "KEY_S"],
+		["KEY_T", "KEY_T"],
+		["KEY_U", "KEY_U"],
+		["KEY_V", "KEY_V"],
+		["KEY_W", "KEY_W"],
+		["KEY_X", "KEY_X"],
+		["KEY_Y", "KEY_Y"],
+		["KEY_Z", "KEY_Z"],
+		["KEY_LEFT_WINDOW_KEY", "KEY_LEFT_WINDOW_KEY"],
+		["KEY_RIGHT_WINDOW_KEY", "KEY_RIGHT_WINDOW_KEY"],
+		["KEY_SELECT_KEY", "KEY_SELECT_KEY"],
+		["KEY_NUMPAD_0", "KEY_NUMPAD_0"],
+		["KEY_NUMPAD_1", "KEY_NUMPAD_1"],
+		["KEY_NUMPAD_2", "KEY_NUMPAD_2"],
+		["KEY_NUMPAD_3", "KEY_NUMPAD_3"],
+		["KEY_NUMPAD_4", "KEY_NUMPAD_4"],
+		["KEY_NUMPAD_5", "KEY_NUMPAD_5"],
+		["KEY_NUMPAD_6", "KEY_NUMPAD_6"],
+		["KEY_NUMPAD_7", "KEY_NUMPAD_7"],
+		["KEY_NUMPAD_8", "KEY_NUMPAD_8"],
+		["KEY_NUMPAD_9", "KEY_NUMPAD_9"],
+		["KEY_MULTIPLY", "KEY_MULTIPLY"],
+		["KEY_ADD", "KEY_ADD"],
+		["KEY_SUBTRACT", "KEY_SUBTRACT"],
+		["KEY_DECIMAL_POINT", "KEY_DECIMAL_POINT"],
+		["KEY_DIVIDE", "KEY_DIVIDE"],
+		["KEY_F1", "KEY_F1"],
+		["KEY_F2", "KEY_F2"],
+		["KEY_F3", "KEY_F3"],
+		["KEY_F4", "KEY_F4"],
+		["KEY_F5", "KEY_F5"],
+		["KEY_F6", "KEY_F6"],
+		["KEY_F7", "KEY_F7"],
+		["KEY_F8", "KEY_F8"],
+		["KEY_F9", "KEY_F9"],
+		["KEY_F10", "KEY_F10"],
+		["KEY_F11", "KEY_F11"],
+		["KEY_F12", "KEY_F12"],
+		["KEY_NUM_LOCK", "KEY_NUM_LOCK"],
+		["KEY_SCROLL_LOCK", "KEY_SCROLL_LOCK"],
+		["KEY_SEMI_COLON", "KEY_SEMI_COLON"],
+		["KEY_EQUAL_SIGN", "KEY_EQUAL_SIGN"],
+		["KEY_COMMA", "KEY_COMMA"],
+		["KEY_DASH", "KEY_DASH"],
+		["KEY_PERIOD", "KEY_PERIOD"],
+		["KEY_FORWARD_SLASH", "KEY_FORWARD_SLASH"],
+		["KEY_GRAVE_ACCENT", "KEY_GRAVE_ACCENT"],
+		["KEY_OPEN_BRACKET", "KEY_OPEN_BRACKET"],
+		["KEY_BACK_SLASH", "KEY_BACK_SLASH"],
+		["KEY_CLOSE_BRAKET", "KEY_CLOSE_BRAKET"],
+		["KEY_SINGLE_QUOTE", "KEY_SINGLE_QUOTE"]
+        ]), "KEY");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//SOUND
+
+//loadsound(filepath)
+Blockly.Blocks['sgljs_loadsound'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendValueInput("soundpath")
+        .appendField("loadsound");
+    this.setInputsInline(true);
+    this.setOutput(true);
+    this.setTooltip('');
+  }
+};
+
+//playsound(sound)
+Blockly.Blocks['sgljs_playsound'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(120);
+    this.appendValueInput("sound")
+        .appendField("playsound");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip('');
+  }
+};
+
+//------------------------------------------------------------------------------------------------------------
+ 
+ //GENERATORS
+
+//display
+Blockly.JavaScript['sgljs_display'] = function(block) {
+  var code = "display";
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//SCREEN
+
+//setdisplay( width, height)
+Blockly.JavaScript['sgljs_setdisplay'] = function(block) {
+  var text_width = block.getFieldValue('width');
+  var text_height = block.getFieldValue('height');
+  var code = "setdisplay("+text_width+","+text_height+");\n";
+  return code;
+};
+
+//setfps(fps)
+Blockly.JavaScript['sgljs_setfps'] = function(block) {
+  var value_fps = Blockly.JavaScript.valueToCode(block, 'fps', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'setfps('+eval(value_fps)+');\n';
+  return code;
+};
+
+Blockly.JavaScript['sgljs_setfpsC'] = function(block) {
+  var value_fps = Blockly.JavaScript.valueToCode(block, 'fps', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'setfps('+eval(value_fps)+');\n';
+  return code;
+};
+
+//  update()
+
+//createsurface(width,height)
+Blockly.JavaScript['sgljs_createsurface'] = function(block) {
+  var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_height = Blockly.JavaScript.valueToCode(block, 'height', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'createsurface('+value_width + ', '+value_height + ')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//function loadsurface(filepath)
+Blockly.JavaScript['sgljs_loadsurface'] = function(block) {
+  var value_filename = Blockly.JavaScript.valueToCode(block, 'filename', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'loadsurface('+value_filename+')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//blt( target,  xdest,  ydest, wdest, hdest, surface, xsource, ysource, wsource, hsource)
+Blockly.JavaScript['sgljs_blt'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'TARGET', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xdest = Blockly.JavaScript.valueToCode(block, 'xdest', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ydest = Blockly.JavaScript.valueToCode(block, 'ydest', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_wdest = Blockly.JavaScript.valueToCode(block, 'wdest', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_hdest = Blockly.JavaScript.valueToCode(block, 'hdest', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_surface = Blockly.JavaScript.valueToCode(block, 'surface', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xsource = Blockly.JavaScript.valueToCode(block, 'xsource', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ysource = Blockly.JavaScript.valueToCode(block, 'ysource', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_wsource = Blockly.JavaScript.valueToCode(block, 'wsource', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_hsource = Blockly.JavaScript.valueToCode(block, 'hsource', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'blt('+value_target+', '+ value_xdest +', '+ value_ydest +', '+ value_wdest +', '+ value_hdest +', ' +value_surface+', '+ value_xsource +', '+ value_ysource +', '+ value_wsource +', '+ value_hsource +');\n';
+  return code;
+};
+
+//paste( target, x, y, surface,angle,zoom,alpha)
+Blockly.JavaScript['sgljs_paste'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'TARGET', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_surface = Blockly.JavaScript.valueToCode(block, 'surface', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_angle = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_zoom = Blockly.JavaScript.valueToCode(block, 'zoom', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_alpha = Blockly.JavaScript.valueToCode(block, 'alpha', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'paste('+value_target+', '+ value_x +', '+ value_y +', ' +value_surface+', '+value_angle+', '+value_zoom+', '+value_alpha+');\n';
+  return code;
+};
+
+//hit(surfacea, xa, ya, surfaceb, xb, yb, xa2, ya2, xb2, yb2) 
+Blockly.JavaScript['sgljs_hit'] = function(block) {
+  var value_surfacea = Blockly.JavaScript.valueToCode(block, 'surfaceA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xa = Blockly.JavaScript.valueToCode(block, 'xA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ya = Blockly.JavaScript.valueToCode(block, 'yA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_surfaceb = Blockly.JavaScript.valueToCode(block, 'surfaceB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xb = Blockly.JavaScript.valueToCode(block, 'xB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_yb = Blockly.JavaScript.valueToCode(block, 'yB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xa2 = Blockly.JavaScript.valueToCode(block, 'xA2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ya2 = Blockly.JavaScript.valueToCode(block, 'yA2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xb2 = Blockly.JavaScript.valueToCode(block, 'xB2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_yb2 = Blockly.JavaScript.valueToCode(block, 'yB2', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'hit('+value_surfacea+', '+value_xa+', '+value_ya+', '+value_surfaceb+', '+value_xb+', '+value_yb+', '+value_xa2+', '+value_ya2+', '+value_xb2+', '+value_yb2+')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//hitpp(surfacea, xa, ya, surfaceb, xb, yb, xa2, ya2, xb2, yb2) 
+Blockly.JavaScript['sgljs_hitpp'] = function(block) {
+  var value_surfacea = Blockly.JavaScript.valueToCode(block, 'surfaceA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xa = Blockly.JavaScript.valueToCode(block, 'xA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ya = Blockly.JavaScript.valueToCode(block, 'yA', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_surfaceb = Blockly.JavaScript.valueToCode(block, 'surfaceB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xb = Blockly.JavaScript.valueToCode(block, 'xB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_yb = Blockly.JavaScript.valueToCode(block, 'yB', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xa2 = Blockly.JavaScript.valueToCode(block, 'xA2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ya2 = Blockly.JavaScript.valueToCode(block, 'yA2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xb2 = Blockly.JavaScript.valueToCode(block, 'xB2', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_yb2 = Blockly.JavaScript.valueToCode(block, 'yB2', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'hitpp('+value_surfacea+', '+value_xa+', '+value_ya+', '+value_surfaceb+', '+value_xb+', '+value_yb+', '+value_xa2+', '+value_ya2+', '+value_xb2+', '+value_yb2+')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//GRAPHICS
+//cls
+Blockly.JavaScript['sgljs_cls'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code ="cls("+value_target+", "+value_color+");\n";
+  return code;
+};
+
+//putpixel( target, x, y, col)
+Blockly.JavaScript['sgljs_putpixel'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'putpixel('+value_target+', '+value_x+', '+value_y+', '+value_color+');\n' ;
+  return code;
+};
+
+//getpixel( target, x, y)
+Blockly.JavaScript['sglij_getpixel'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'getpixel('+value_target+', '+value_x+', '+value_y+')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//line( target, x1, y1, x2, y2, col)
+Blockly.JavaScript['sgljs_line'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xs = Blockly.JavaScript.valueToCode(block, 'xs', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_ys = Blockly.JavaScript.valueToCode(block, 'ys', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_xd = Blockly.JavaScript.valueToCode(block, 'xd', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_yd = Blockly.JavaScript.valueToCode(block, 'yd', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'line('+value_target+', '+value_xs+', '+value_ys+', '+value_xd+', '+value_yd+', '+value_color+');\n' ;
+  return code;
+};
+
+//box( target, x, y, w, h, col)
+Blockly.JavaScript['sgljs_box'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_w = Blockly.JavaScript.valueToCode(block, 'w', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_h = Blockly.JavaScript.valueToCode(block, 'h', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'box('+value_target+', '+value_x+', '+value_y+', '+value_w+', '+value_h+', '+value_color+');\n';
+  return code;
+};
+
+//bar( target, x, y, w, h, col)
+Blockly.JavaScript['sgljs_bar'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_w = Blockly.JavaScript.valueToCode(block, 'w', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_h = Blockly.JavaScript.valueToCode(block, 'h', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'bar('+value_target+', '+value_x+', '+value_y+', '+value_w+', '+value_h+', '+value_color+');\n';
+  return code;
+};
+
+//circle( target, vx, vy, r, col)
+Blockly.JavaScript['sgljs_circle'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_vx = Blockly.JavaScript.valueToCode(block, 'vx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_vy = Blockly.JavaScript.valueToCode(block, 'vy', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_r = Blockly.JavaScript.valueToCode(block, 'r', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'circle('+value_target+', '+value_vx+', '+value_vy+', '+value_r+', '+value_color+');\n';
+  return code;
+};
+
+//fillcircle( target, vx, vy, r, col)
+Blockly.JavaScript['sgljs_fillcircle'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_vx = Blockly.JavaScript.valueToCode(block, 'vx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_vy = Blockly.JavaScript.valueToCode(block, 'vy', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_r = Blockly.JavaScript.valueToCode(block, 'r', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'fillcircle('+value_target+', '+value_vx+', '+value_vy+', '+value_r+', '+value_color+');\n';
+  return code;
+};
+
+//TEXT
+ 
+//setfont(fnt)
+Blockly.JavaScript['sgljs_setfont'] = function(block) {
+  var value_setfont = Blockly.JavaScript.valueToCode(block, 'setfont', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = 'setfont('+value_setfont+');\n';
+  return code;
+};
+
+//text ( target, x, y, size, col, txt)
+Blockly.JavaScript['sgljs_text'] = function(block) {
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_size = Blockly.JavaScript.valueToCode(block, 'size', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_color = Blockly.JavaScript.valueToCode(block, 'color', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_text = Blockly.JavaScript.valueToCode(block, 'text', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = "text( "+value_target+", "+value_x+", "+value_y+", "+value_size +", " +value_color+ ","+value_text +");\n";
+  return code;
+};
+
+//MOUSE
+
+//mouseX
+Blockly.JavaScript['sgljs_mousex'] = function(block) {
+  var code = 'mouseX';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//mouseY
+Blockly.JavaScript['sgljs_mousey'] = function(block) {
+  var code = 'mouseY';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//mouseB
+Blockly.JavaScript['sgljs_mouseb'] = function(block) {
+  var code = 'mouseB';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//TOUCH
+
+//touchX
+Blockly.JavaScript['sgljs_touchx'] = function(block) {
+  var value_index = Blockly.JavaScript.valueToCode(block, 'index', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'touchX['+value_index+']';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//touchY
+Blockly.JavaScript['sgljs_touchy'] = function(block) {
+  var value_index = Blockly.JavaScript.valueToCode(block, 'index', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'touchY['+value_index+']';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//touchB
+Blockly.JavaScript['sgljs_touchb'] = function(block) {
+  var value_index = Blockly.JavaScript.valueToCode(block, 'index', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'touchB['+value_index+']';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//KEYBOARD
+
+//key
+Blockly.JavaScript['sgljs_key'] = function(block) {
+  var dropdown_name = block.getFieldValue('KEY');
+  var code = 'key['+dropdown_name+']';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//SOUND
+
+//loadsound(filepath)
+Blockly.JavaScript['sgljs_loadsound'] = function(block) {
+  var value_soundpath = Blockly.JavaScript.valueToCode(block, 'soundpath', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'loadsound('+value_soundpath+')';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+//playsound(sound)
+Blockly.JavaScript['sgljs_playsound'] = function(block) {
+  var value_sound = Blockly.JavaScript.valueToCode(block, 'sound', Blockly.JavaScript.ORDER_ATOMIC);
+  
+  var code = 'playsound('+value_sound+');\n';
+  return code;
+};
+
+//------------------------------------------------------------------------------------------------------------
+
+  // Configurazione di Blockly
+  var workspace = Blockly.inject('blocklyDiv', {
+    toolbox: document.getElementById('toolbox')
+  });
+
+  // Funzione per generare il codice JavaScript dal workspace
+  function generateCode(workspace) {
+    return Blockly.JavaScript.workspaceToCode(workspace);
+  }
+
+//------------------------------------------------------------------------------------------------------------
+
+  // Funzione per generare il codice XML dal workspace
+  function generateXML(workspace) {
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var xmlText = Blockly.Xml.domToText(xml);
+    return xmlText;
+  }
+
+  // Funzione per scaricare il codice XML come file
+  function downloadXML(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+  
+  // Funzione per scaricare il codice XML come file
+  function downloadHTML(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  }
+  
+  // Funzione per caricare il codice XML nel workspace
+ function loadXML(text) {
+    var parser = new DOMParser();
+    var xml = parser.parseFromString(text, 'text/xml');
+    Blockly.Xml.domToWorkspace(xml.documentElement, workspace);
+  }
+
+function createNewBlocks() {
+  var xmlText = `<xml xmlns="https://developers.google.com/blockly/xml">
+                   <block type="sgljs_setdisplay" id="qW,1MIkigErh;iEPe.=m" x="157" y="113">
+                     <field name="width">1920</field>
+                     <field name="height">900</field>
+                   </block>
+                   <block type="procedures_defnoreturn" id="6jzrSs-W8K3;^TE1Ilbt" x="242" y="206">
+                     <field name="NAME">update</field>
+                     <comment pinned="false" h="80" w="160">Describe this function...</comment>
+                   </block>
+                 </xml>`;
+  loadXML(xmlText);
+}
+
+// Carica lo stato del workspace dal local storage
+  function loadWorkspaceFromLocalStorage() {
+    var xmlText = localStorage.getItem('blocklyWorkspace');
+    if (xmlText) {
+      loadXML(xmlText);
+    }
+  }
+
+  // Salva lo stato del workspace nel local storage
+  function saveWorkspaceToLocalStorage() {
+    var xmlText = generateXML(workspace);
+    localStorage.setItem('blocklyWorkspace', xmlText);
+  }
+
+  // Event listener per il salvataggio automatico
+  workspace.addChangeListener(saveWorkspaceToLocalStorage);
+
+
+
+// TOOLBAR
+
+  // Esecuzione del codice generato
+  document.getElementById('runButton').addEventListener('click', function() {
+    var code = generateCode(workspace);
+    try {
+        var newWindow = window.open("", "_blank");
+        newWindow.document.write("<script src='sgl.js'><\/script><script>");
+        newWindow.document.write(code);
+        newWindow.document.write("<\/script>");
+        newWindow.document.close();        
+    } catch (e) {
+        console.error(e);
+    }
+  });
+  
+  // Esportazione del codice generato
+  document.getElementById('exportButton').addEventListener('click', function() {
+    var code = "<script src='sgl.js'><\/script><script>"+ generateCode(workspace)+"<\/script>" ;
+    downloadHTML('blockly_code.html', code);
+  });
+
+  // Salvataggio del codice XML generato
+  document.getElementById('saveButton').addEventListener('click', function() {
+    var xmlText = generateXML(workspace);
+    downloadXML('blockly_code.xml', xmlText);
+  });
+
+  // Apertura del file XML
+  document.getElementById('openButton').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+  });
+
+  // Lettura del file XML selezionato
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    if (file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var text = e.target.result;
+        loadXML(text);
+      };
+      reader.readAsText(file);
+    }
+  });
+
+  // Aggiungi un event listener per il pulsante "New"
+  document.getElementById('newButton').addEventListener('click', createNewBlocks);
+  
+   // Carica lo stato del workspace dal local storage all'avvio
+  window.addEventListener('load', loadWorkspaceFromLocalStorage);
+
+</script>
+
+</body>
+</html>
