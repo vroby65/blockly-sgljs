@@ -33,7 +33,7 @@ This project provides a simple block-based coding environment using HTML, JavaSc
 - `index.html`: The main HTML file.
 - `sgl.js`: The SGL.js library.
 - Require CDNJS repository
-- 
+  
 ## Contributing
 
 1. Fork the repository.
