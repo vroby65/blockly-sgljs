@@ -34,29 +34,6 @@ This project provides a simple block-based coding environment using HTML, JavaSc
 - `sgl.js`: The SGL.js library.
 - Require CDNJS repository
   
-## Contributing
-
-1. Fork the repository.
-2. Create a new branch:
-
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
-
-3. Make your changes and commit them:
-
-    ```bash
-    git commit -m "Add new feature"
-    ```
-
-4. Push the branch:
-
-    ```bash
-    git push origin feature/your-feature-name
-    ```
-
-5. Open a Pull Request.
-
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
