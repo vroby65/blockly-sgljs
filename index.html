@@ -1685,8 +1685,8 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
   }
   
   // Funzione per scaricare il codice XML come file
-  function downloadHTML(filename, text) {
-   // Scarica il file HTML
+ function downloadHTML(filename, text) {
+    // Scarica il file HTML
     var elementHTML = document.createElement('a');
     elementHTML.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
     elementHTML.setAttribute('download', filename);
@@ -1696,15 +1696,22 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
     document.body.removeChild(elementHTML);
 
     // Scarica il file JS
-    var elementJS = document.createElement('a');
-    elementJS.setAttribute('href', 'data:text/javascript;charset=utf-8,' + encodeURIComponent("")); 
-    elementJS.setAttribute('download', 'sgl.js');
-    elementJS.style.display = 'none';
-    document.body.appendChild(elementJS);
-    elementJS.click();
-    document.body.removeChild(elementJS);
-  }
-  
+    fetch('sgl.js')
+        .then(response => response.blob())
+        .then(blob => {
+            var url = window.URL.createObjectURL(blob);
+            var elementJS = document.createElement('a');
+            elementJS.setAttribute('href', url);
+            elementJS.setAttribute('download', 'sgl.js');
+            elementJS.style.display = 'none';
+            document.body.appendChild(elementJS);
+            elementJS.click();
+            document.body.removeChild(elementJS);
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(err => console.error('Error fetching the JS file:', err));
+}
+
   // Funzione per caricare il codice XML nel workspace
  function loadXML(text) {
     var parser = new DOMParser();
