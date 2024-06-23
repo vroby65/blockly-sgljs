@@ -1,6 +1,6 @@
 # Blockly SGL.js      
 
-## demo: (https://vroby65.github.io/blockly-sgljs/){:target="_blank"}
+## demo: https://vroby65.github.io/blockly-sgljs/
 
 ![immagine](https://github.com/vroby65/blockly-sgljs/assets/6366632/95fa0032-19f8-4906-a92c-cc5070a4948d)
 
