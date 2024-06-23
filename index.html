@@ -1686,13 +1686,23 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
   
   // Funzione per scaricare il codice XML come file
   function downloadHTML(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+   // Scarica il file HTML
+    var elementHTML = document.createElement('a');
+    elementHTML.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
+    elementHTML.setAttribute('download', filename);
+    elementHTML.style.display = 'none';
+    document.body.appendChild(elementHTML);
+    elementHTML.click();
+    document.body.removeChild(elementHTML);
+
+    // Scarica il file JS
+    var elementJS = document.createElement('a');
+    elementJS.setAttribute('href', 'data:text/javascript;charset=utf-8,' + encodeURIComponent("")); 
+    elementJS.setAttribute('download', 'sgl.js');
+    elementJS.style.display = 'none';
+    document.body.appendChild(elementJS);
+    elementJS.click();
+    document.body.removeChild(elementJS);
   }
   
   // Funzione per caricare il codice XML nel workspace
@@ -1755,13 +1765,13 @@ function createNewBlocks() {
   // Esportazione del codice generato
   document.getElementById('exportButton').addEventListener('click', function() {
     var code = "<script src='sgl.js'><\/script><script>"+ generateCode(workspace)+"<\/script>" ;
-    downloadHTML('blockly_code.html', code);
+    downloadHTML('blockly-sgljs.html', code);
   });
 
   // Salvataggio del codice XML generato
   document.getElementById('saveButton').addEventListener('click', function() {
     var xmlText = generateXML(workspace);
-    downloadXML('blockly_code.xml', xmlText);
+    downloadXML('project.blockly-sgljs', xmlText);
   });
 
   // Apertura del file XML
@@ -1776,6 +1786,7 @@ function createNewBlocks() {
       var reader = new FileReader();
       reader.onload = function(e) {
         var text = e.target.result;
+        workspace.clear();   
         loadXML(text);
       };
       reader.readAsText(file);
