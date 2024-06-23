@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>Blockly-sgljs</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blockly_compressed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blocks_compressed.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/msg/en.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/javascript_compressed.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blockly_compressed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/blocks_compressed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/msg/en.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blockly/10.0.0/javascript_compressed.min.js"></script> 
   <style>
     html, body {
       height: 100%;
@@ -73,8 +73,8 @@
   <input type="file" id="fileInput" style="display:none"/>  
   <button id="openButton">Open</button>
   <button id="saveButton">Save</button>
-   <button id="exportButton">Export</button>
-   <span> </span>
+  <button id="exportButton">Export</button>
+  <span> </span>
   <button id="runButton">Run</button>
 </div>
 <div id="blocklyDiv"></div>
@@ -956,7 +956,7 @@ Blockly.Blocks['sgljs_putpixel'] = {
 };
 
 //getpixel( target, x, y)
-Blockly.Blocks['sgljs_getpixel'] = {
+Blockly.Blocks['sglij_getpixel'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#getpixeltarget-x-y');
     this.setColour(120);
@@ -1566,7 +1566,6 @@ Blockly.JavaScript['sgljs_fillcircle'] = function(block) {
 //setfont(fnt)
 Blockly.JavaScript['sgljs_setfont'] = function(block) {
   var value_setfont = Blockly.JavaScript.valueToCode(block, 'setfont', Blockly.JavaScript.ORDER_ATOMIC);
-  // TODO: Assemble JavaScript into code variable.
   var code = 'setfont('+value_setfont+');\n';
   return code;
 };
@@ -1654,26 +1653,26 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
 
 //------------------------------------------------------------------------------------------------------------
 
-  // Configurazione di Blockly
+  // Configuration of Blockly
   var workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox')
   });
 
-  // Funzione per generare il codice JavaScript dal workspace
+  // Function to generate JavaScript code from the workspace
   function generateCode(workspace) {
     return Blockly.JavaScript.workspaceToCode(workspace);
   }
 
 //------------------------------------------------------------------------------------------------------------
 
-  // Funzione per generare il codice XML dal workspace
+  // Function to generate XML code from the workspace
   function generateXML(workspace) {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xmlText = Blockly.Xml.domToText(xml);
     return xmlText;
   }
 
-  // Funzione per scaricare il codice XML come file
+  // Function to download XML code as a file
   function downloadXML(filename, text) {
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(text));
@@ -1684,9 +1683,9 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
     document.body.removeChild(element);
   }
   
-  // Funzione per scaricare il codice XML come file
- function downloadHTML(filename, text) {
-    // Scarica il file HTML
+  // Function to download the HTML code
+  function downloadHTML(filename, text) {
+    // Download the HTML file
     var elementHTML = document.createElement('a');
     elementHTML.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
     elementHTML.setAttribute('download', filename);
@@ -1695,7 +1694,7 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
     elementHTML.click();
     document.body.removeChild(elementHTML);
 
-    // Scarica il file JS
+    // Download the JS file
     fetch('sgl.js')
         .then(response => response.blob())
         .then(blob => {
@@ -1710,9 +1709,9 @@ Blockly.JavaScript['sgljs_playsound'] = function(block) {
             window.URL.revokeObjectURL(url);
         })
         .catch(err => console.error('Error fetching the JS file:', err));
-}
+  }
 
-  // Funzione per caricare il codice XML nel workspace
+  // Function to load the XML code into the workspace
  function loadXML(text) {
     var parser = new DOMParser();
     var xml = parser.parseFromString(text, 'text/xml');
@@ -1734,7 +1733,7 @@ function createNewBlocks() {
   loadXML(xmlText);
 }
 
-// Carica lo stato del workspace dal local storage
+// Load the workspace state from local storage
   function loadWorkspaceFromLocalStorage() {
     var xmlText = localStorage.getItem('blocklyWorkspace');
     if (xmlText) {
@@ -1742,20 +1741,19 @@ function createNewBlocks() {
     }
   }
 
-  // Salva lo stato del workspace nel local storage
+  // Save the workspace state to local storage
   function saveWorkspaceToLocalStorage() {
     var xmlText = generateXML(workspace);
     localStorage.setItem('blocklyWorkspace', xmlText);
   }
 
-  // Event listener per il salvataggio automatico
+  // Event listener for auto-save
   workspace.addChangeListener(saveWorkspaceToLocalStorage);
-
 
 
 // TOOLBAR
 
-  // Esecuzione del codice generato
+  // Execution of the generated code
   document.getElementById('runButton').addEventListener('click', function() {
     var code = generateCode(workspace);
     try {
@@ -1769,24 +1767,24 @@ function createNewBlocks() {
     }
   });
   
-  // Esportazione del codice generato
+  // Export of the generated code
   document.getElementById('exportButton').addEventListener('click', function() {
     var code = "<script src='sgl.js'><\/script><script>"+ generateCode(workspace)+"<\/script>" ;
     downloadHTML('blockly-sgljs.html', code);
   });
 
-  // Salvataggio del codice XML generato
+  // Save the generated XML code
   document.getElementById('saveButton').addEventListener('click', function() {
     var xmlText = generateXML(workspace);
     downloadXML('project.blockly-sgljs', xmlText);
   });
 
-  // Apertura del file XML
+  // Open the XML file
   document.getElementById('openButton').addEventListener('click', function() {
     document.getElementById('fileInput').click();
   });
 
-  // Lettura del file XML selezionato
+  // Read the selected XML file
   document.getElementById('fileInput').addEventListener('change', function(event) {
     var file = event.target.files[0];
     if (file) {
@@ -1800,10 +1798,10 @@ function createNewBlocks() {
     }
   });
 
-  // Aggiungi un event listener per il pulsante "New"
+  // Add an event listener for the "New" button
   document.getElementById('newButton').addEventListener('click', createNewBlocks);
   
-   // Carica lo stato del workspace dal local storage all'avvio
+   // Load the workspace state from local storage on startup
   window.addEventListener('load', loadWorkspaceFromLocalStorage);
 
 </script>
