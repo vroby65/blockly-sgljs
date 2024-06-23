@@ -1417,7 +1417,7 @@ Blockly.JavaScript['sgljs_loadsurface'] = function(block) {
 
 //blt( target,  xdest,  ydest, wdest, hdest, surface, xsource, ysource, wsource, hsource)
 Blockly.JavaScript['sgljs_blt'] = function(block) {
-  var value_target = Blockly.JavaScript.valueToCode(block, 'TARGET', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
   var value_xdest = Blockly.JavaScript.valueToCode(block, 'xdest', Blockly.JavaScript.ORDER_ATOMIC);
   var value_ydest = Blockly.JavaScript.valueToCode(block, 'ydest', Blockly.JavaScript.ORDER_ATOMIC);
   var value_wdest = Blockly.JavaScript.valueToCode(block, 'wdest', Blockly.JavaScript.ORDER_ATOMIC);
@@ -1433,7 +1433,7 @@ Blockly.JavaScript['sgljs_blt'] = function(block) {
 
 //paste( target, x, y, surface,angle,zoom,alpha)
 Blockly.JavaScript['sgljs_paste'] = function(block) {
-  var value_target = Blockly.JavaScript.valueToCode(block, 'TARGET', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
   var value_x = Blockly.JavaScript.valueToCode(block, 'X', Blockly.JavaScript.ORDER_ATOMIC);
   var value_y = Blockly.JavaScript.valueToCode(block, 'Y', Blockly.JavaScript.ORDER_ATOMIC);
   var value_surface = Blockly.JavaScript.valueToCode(block, 'surface', Blockly.JavaScript.ORDER_ATOMIC);
