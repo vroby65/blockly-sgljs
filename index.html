@@ -716,7 +716,7 @@ Blockly.Blocks['sgljs_display'] = {
     this.appendDummyInput()
         .appendField("display");
     this.setOutput(true);
-    this.setTooltip('returns the system variable with the screen handle.');
+    this.setTooltip('returns the system variable with the screen handle');
   }
 };
 
@@ -732,7 +732,7 @@ Blockly.Blocks['sgljs_setdisplay'] = {
         .appendField(new Blockly.FieldTextInput("width"), "width")
         .appendField(new Blockly.FieldTextInput("heigth"), "height");
     this.setNextStatement(true);
-    this.setTooltip('Sets the screen dimensions: it must be declared outside of any function.');
+    this.setTooltip('Sets the screen dimensions: it must be declared outside of any function');
   }
 };
 
@@ -768,7 +768,7 @@ Blockly.Blocks['sgljs_createsurface'] = {
         .appendField("height");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('Creates a surface and returns the handle to the variable for use.');
+    this.setTooltip('Creates a surface and returns the handle to the variable for use');
   }
 };
 
@@ -783,7 +783,7 @@ Blockly.Blocks['sgljs_loadsurface'] = {
         .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"));
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('Loads an image as a surface via a web URL and returns the handle.');
+    this.setTooltip('Loads an image as a surface via a web URL and returns the handle');
   }
 };
 
@@ -817,7 +817,7 @@ Blockly.Blocks['sgljs_blt'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Prints a portion of a surface onto another surface, which can also be the display.');
+    this.setTooltip('Prints a portion of a surface onto another surface, which can also be the display');
   }
 };
 
@@ -845,7 +845,7 @@ Blockly.Blocks['sgljs_paste'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Prints the image surface onto the target surface, setting the zoom, rotation, and transparency.');
+    this.setTooltip('Prints the image surface onto the target surface, setting the zoom, rotation, and transparency');
   }
 };
 
@@ -878,7 +878,7 @@ Blockly.Blocks['sgljs_hit'] = {
         .appendField("yB2");
     this.setInputsInline(true);
 	this.setOutput(true);    
-    this.setTooltip('Checks the collision between two surfaces by comparing their coordinates.');
+    this.setTooltip('Checks the collision between two surfaces by comparing their coordinates');
   }
 };
 
@@ -911,9 +911,7 @@ Blockly.Blocks['sgljs_hitpp'] = {
         .appendField("yB2");
     this.setInputsInline(true);
 	this.setOutput(true);    
-    this.setTooltip('Checks the collision between two surfaces by comparing their coordinates and also verifying the image pixels (more precise but slower).
-
-');
+    this.setTooltip('Checks the collision between two surfaces by comparing their coordinates and also verifying the image pixels (more precise but slower)');
   }
 };
 
@@ -932,7 +930,7 @@ Blockly.Blocks['sgljs_cls'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Clears the content of the surface and fills it with the chosen color.');
+    this.setTooltip('Clears the content of the surface and fills it with the chosen color');
   }
 };
 
@@ -954,7 +952,7 @@ Blockly.Blocks['sgljs_putpixel'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws a point of the chosen color on the surface.');
+    this.setTooltip('Draws a point of the chosen color on the surface');
   }
 };
 
@@ -973,7 +971,7 @@ Blockly.Blocks['sgljs_getpixel'] = {
         .appendField("y");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('Reads the color of a point on the surface.');
+    this.setTooltip('Reads the color of a point on the surface');
   }
 };
 
@@ -999,7 +997,7 @@ Blockly.Blocks['sgljs_line'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws a line on the surface.');
+    this.setTooltip('Draws a line on the surface');
   }
 };
 
@@ -1025,7 +1023,7 @@ Blockly.Blocks['sgljs_box'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws an empty rectangle on the surface.');
+    this.setTooltip('Draws an empty rectangle on the surface');
   }
 };
 
@@ -1051,7 +1049,7 @@ Blockly.Blocks['sgljs_bar'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws a filled rectangle on the surface.');
+    this.setTooltip('Draws a filled rectangle on the surface');
   }
 };
 
@@ -1075,7 +1073,7 @@ Blockly.Blocks['sgljs_circle'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws an empty circle on the surface.');
+    this.setTooltip('Draws an empty circle on the surface');
   }
 };
 
@@ -1099,7 +1097,7 @@ Blockly.Blocks['sgljs_fillcircle'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('Draws a filled circle on the surface.');
+    this.setTooltip('Draws a filled circle on the surface');
   }
 };
 
@@ -1114,7 +1112,7 @@ Blockly.Blocks['sgljs_setfont'] = {
         .appendField("setfont");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('');
+    this.setTooltip('Sets the font (default is Arial)');
   }
 };
 
@@ -1140,7 +1138,7 @@ Blockly.Blocks['sgljs_text'] = {
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('');
+    this.setTooltip('Prints text on the surface');
   }
 };
 
@@ -1154,7 +1152,7 @@ Blockly.Blocks['sgljs_mousex'] = {
     this.appendDummyInput()
         .appendField("mouseX");
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the x-coordinate of the mouse');
   }
 };
 
@@ -1166,7 +1164,7 @@ Blockly.Blocks['sgljs_mousey'] = {
     this.appendDummyInput()
         .appendField("mouseY");
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the y-coordinate of the mouse');
   }
 };
 //mouseB
@@ -1177,7 +1175,7 @@ Blockly.Blocks['sgljs_mouseb'] = {
     this.appendDummyInput()
         .appendField("mouseB");
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the pressed mouse button');
   }
 };
 
@@ -1193,7 +1191,7 @@ Blockly.Blocks['sgljs_touchx'] = {
     this.appendValueInput("index");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the x-coordinate of the touch (supports multi-touch)');
   }
 };
 //touchY
@@ -1206,7 +1204,7 @@ Blockly.Blocks['sgljs_touchy'] = {
     this.appendValueInput("index");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the y-coordinate of the touch (supports multi-touch)');
   }
 };
 //touchB
@@ -1219,7 +1217,7 @@ Blockly.Blocks['sgljs_touchb'] = {
     this.appendValueInput("index");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the touch input (supports multi-touch)');
   }
 };
 
@@ -1341,7 +1339,7 @@ Blockly.Blocks['sgljs_key'] = {
         ]), "KEY");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Returns the key state and supports multiple key presses simultaneously');
   }
 };
 
@@ -1356,7 +1354,7 @@ Blockly.Blocks['sgljs_loadsound'] = {
         .appendField("loadsound");
     this.setInputsInline(true);
     this.setOutput(true);
-    this.setTooltip('');
+    this.setTooltip('Loads a sound from the URL. Supports WAV, MP3, MP4, and Ogg Vorbis formats (formats depend on the browser)');
   }
 };
 
@@ -1369,7 +1367,7 @@ Blockly.Blocks['sgljs_playsound'] = {
         .appendField("playsound");
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip('');
+    this.setTooltip('Plays a sound');
   }
 };
 
