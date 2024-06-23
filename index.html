@@ -780,7 +780,6 @@ Blockly.Blocks['sgljs_loadsurface'] = {
     this.appendDummyInput()
         .appendField("loadsurface");
     this.appendValueInput("filename")
-        .appendField(new Blockly.FieldImage("https://www.gstatic.com/codesite/ph/images/star_on.gif", 15, 15, "*"));
     this.setInputsInline(true);
     this.setOutput(true);
     this.setTooltip('Loads an image as a surface via a web URL and returns the handle');
@@ -920,7 +919,7 @@ Blockly.Blocks['sgljs_hitpp'] = {
 Blockly.Blocks['sgljs_cls'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#clstarget-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("cls");
 	this.appendValueInput("target")
@@ -938,7 +937,7 @@ Blockly.Blocks['sgljs_cls'] = {
 Blockly.Blocks['sgljs_putpixel'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#putpixeltarget-x-y-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("putpixel");
     this.appendValueInput("target")
@@ -960,7 +959,7 @@ Blockly.Blocks['sgljs_putpixel'] = {
 Blockly.Blocks['sgljs_getpixel'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#getpixeltarget-x-y');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("getpixel");
     this.appendValueInput("target")
@@ -979,7 +978,7 @@ Blockly.Blocks['sgljs_getpixel'] = {
 Blockly.Blocks['sgljs_line'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#linetarget-xs-ys-xd-yd-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("line");
     this.appendValueInput("target")
@@ -1005,7 +1004,7 @@ Blockly.Blocks['sgljs_line'] = {
 Blockly.Blocks['sgljs_box'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#boxtarget-x-y-w-h-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("box");
     this.appendValueInput("target")
@@ -1031,7 +1030,7 @@ Blockly.Blocks['sgljs_box'] = {
 Blockly.Blocks['sgljs_bar'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#bartarget-x-y-w-h-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("bar");
     this.appendValueInput("target")
@@ -1057,7 +1056,7 @@ Blockly.Blocks['sgljs_bar'] = {
 Blockly.Blocks['sgljs_circle'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#circletarget-vx-vy-r-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("circle");
     this.appendValueInput("target")
@@ -1081,7 +1080,7 @@ Blockly.Blocks['sgljs_circle'] = {
 Blockly.Blocks['sgljs_fillcircle'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#fillcircletarget-vx-vy-r-color');
-    this.setColour(130);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("fillcircle");
     this.appendValueInput("target")
@@ -1107,7 +1106,7 @@ Blockly.Blocks['sgljs_fillcircle'] = {
 Blockly.Blocks['sgljs_setfont'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#setfontfont');
-    this.setColour(140);
+    this.setColour(120);
     this.appendValueInput("setfont")
         .appendField("setfont");
     this.setPreviousStatement(true);
@@ -1120,7 +1119,7 @@ Blockly.Blocks['sgljs_setfont'] = {
 Blockly.Blocks['sgljs_text'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#texttarget-x-y-size-color-text');
-    this.setColour(140);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("text");
     this.appendValueInput("target")
@@ -1148,7 +1147,7 @@ Blockly.Blocks['sgljs_text'] = {
 Blockly.Blocks['sgljs_mousex'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#mousex');
-    this.setColour(150);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("mouseX");
     this.setOutput(true);
@@ -1160,7 +1159,7 @@ Blockly.Blocks['sgljs_mousex'] = {
 Blockly.Blocks['sgljs_mousey'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#mousey');
-    this.setColour(150);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("mouseY");
     this.setOutput(true);
@@ -1171,7 +1170,7 @@ Blockly.Blocks['sgljs_mousey'] = {
 Blockly.Blocks['sgljs_mouseb'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#mouseb');
-    this.setColour(150);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("mouseB");
     this.setOutput(true);
@@ -1185,7 +1184,7 @@ Blockly.Blocks['sgljs_mouseb'] = {
 Blockly.Blocks['sgljs_touchx'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#touchxindex');
-    this.setColour(160);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("touchX");
     this.appendValueInput("index");
@@ -1198,7 +1197,7 @@ Blockly.Blocks['sgljs_touchx'] = {
 Blockly.Blocks['sgljs_touchy'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#touchyindex');
-    this.setColour(160);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("touchY");
     this.appendValueInput("index");
@@ -1211,7 +1210,7 @@ Blockly.Blocks['sgljs_touchy'] = {
 Blockly.Blocks['sgljs_touchb'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#touchbindex');
-    this.setColour(160);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("touchB");
     this.appendValueInput("index");
@@ -1227,7 +1226,7 @@ Blockly.Blocks['sgljs_touchb'] = {
 Blockly.Blocks['sgljs_key'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#keykey');
-    this.setColour(170);
+    this.setColour(120);
     this.appendDummyInput()
         .appendField("key")
         .appendField(new Blockly.FieldDropdown([
@@ -1349,7 +1348,7 @@ Blockly.Blocks['sgljs_key'] = {
 Blockly.Blocks['sgljs_loadsound'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#loadsoundfilepath');
-    this.setColour(180);
+    this.setColour(120);
     this.appendValueInput("soundpath")
         .appendField("loadsound");
     this.setInputsInline(true);
@@ -1362,7 +1361,7 @@ Blockly.Blocks['sgljs_loadsound'] = {
 Blockly.Blocks['sgljs_playsound'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#playsoundsound');
-    this.setColour(180);
+    this.setColour(120);
     this.appendValueInput("sound")
         .appendField("playsound");
     this.setPreviousStatement(true);
