@@ -333,9 +333,7 @@
         </block>
         <block type="sgljs_blt">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="xdest">
                 <block type="math_number">
@@ -385,9 +383,7 @@
         </block>
         <block type="sgljs_paste">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="X">
                 <block type="math_number">
@@ -426,9 +422,7 @@
     <category name="graphics" categorystyle="loop_category">
         <block type="sgljs_cls">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="color">
                 <block type="colour_picker">
@@ -438,9 +432,7 @@
         </block>
         <block type="sgljs_putpixel">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="x">
                 <block type="math_number">
@@ -460,9 +452,7 @@
         </block>
         <block type="sgljs_getpixel">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="x">
                 <block type="math_number">
@@ -477,9 +467,7 @@
         </block>
         <block type="sgljs_line">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="xs">
                 <block type="math_number">
@@ -509,9 +497,7 @@
         </block>
         <block type="sgljs_box">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="x">
                 <block type="math_number">
@@ -541,9 +527,7 @@
         </block>
         <block type="sgljs_bar">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="x">
                 <block type="math_number">
@@ -573,9 +557,7 @@
         </block>
         <block type="sgljs_circle">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="vx">
                 <block type="math_number">
@@ -600,9 +582,7 @@
         </block>
         <block type="sgljs_fillcircle">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="vx">
                 <block type="math_number">
@@ -636,9 +616,7 @@
         </block>
         <block type="sgljs_text">
             <value name="target">
-                <block type="sgljs_display">
-                    <field name="VAR">display</field>
-                </block>
+                <block type="sgljs_display"></block>
             </value>
             <value name="x">
                 <block type="math_number">
@@ -657,13 +635,13 @@
             </value>
             <value name="color">
                 <block type="colour_picker">
-                    <field name="COLOUR">#000000</field>
+                    <field name="COLOUR">#000000</field>https://vroby65.github.io/blockly-sgljs/
                 </block>
             </value>
             <value name="text">
                 <block type="text">
                     <field name="TEXT">Hello World</field>
-                </block>
+                </block>https://vroby65.github.io/blockly-sgljs/
             </value>
         </block>
     </category>
@@ -719,6 +697,8 @@
     
 // BLOCKS    
 
+//SCREEN
+
  //display
 Blockly.Blocks['sgljs_display'] = {
   init: function() {
@@ -731,8 +711,6 @@ Blockly.Blocks['sgljs_display'] = {
   }
 };
 
-//SCREEN
-
 //setdisplay( width, height)
 Blockly.Blocks['sgljs_setdisplay'] = {
   init: function() {
@@ -741,7 +719,7 @@ Blockly.Blocks['sgljs_setdisplay'] = {
     this.appendDummyInput()
         .appendField("setdisplay")
         .appendField(new Blockly.FieldTextInput("width"), "width")
-        .appendField(new Blockly.FieldTextInput("heigth"), "height");
+        .appendField(new Blockly.FieldTextInput("height"), "height");
     this.setNextStatement(true);
     this.setTooltip('Sets the screen dimensions: it must be declared outside of any function');
   }
@@ -967,7 +945,7 @@ Blockly.Blocks['sgljs_putpixel'] = {
 };
 
 //getpixel( target, x, y)
-Blockly.Blocks['sglij_getpixel'] = {
+Blockly.Blocks['sgljs_getpixel'] = {
   init: function() {
     this.setHelpUrl('https://github.com/vroby65/blockly-sgljs/wiki/commands#getpixeltarget-x-y');
     this.setColour(120);
@@ -1506,7 +1484,7 @@ Blockly.JavaScript['sgljs_putpixel'] = function(block) {
 };
 
 //getpixel( target, x, y)
-Blockly.JavaScript['sglij_getpixel'] = function(block) {
+Blockly.JavaScript['sgljs_getpixel'] = function(block) {
   var value_target = Blockly.JavaScript.valueToCode(block, 'target', Blockly.JavaScript.ORDER_ATOMIC);
   var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
   var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
